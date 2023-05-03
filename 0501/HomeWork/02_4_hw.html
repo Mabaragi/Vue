@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta charset="utf8">
+  <title>Hello, world</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <h1>회문 검사기</h1>
+  <div id="app">
+    <input type="text" @input="onInputChange">
+    <button @click="check">확인하기</button>
+  </div>
+</div>
+
+<script type="text/javascript">
+   var app = new Vue({
+        el : '#app',
+        data: {
+          msg:"",
+        },
+        methods: {
+          onInputChange(event) {
+            this.msg = event.target.value
+            console.log(this.msg);
+          },
+          check() {
+            if (!this.msg) {
+              alert('입력값이 없습니다!')
+              return
+            }
+            const N = this.msg.length
+            flag = true
+            for (let i = 0; i < parseInt(N/2); i++) {
+              if (this.msg[i] != this.msg[N - i - 1]) {
+                flag = false
+                break
+              }
+            }
+            if (flag) {
+              alert('회문입니다!')
+            } else {
+              alert('회문이 아닙니다!')
+            }
+          },
+        },
+   });
+</script>
+
+</body>

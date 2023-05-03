@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div id="app">
+    <button @click="getDog"> 멍멍 </button>
+    <button @click="getCat"> 야옹야옹 </button>
+    <img :src="dogCatImg" alt="">
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const dogApi = 'https://dog.ceo/api/breeds/image/random'
+    const catApi = 'https://api.thecatapi.com/v1/images/search'
+    const app = new Vue({
+      el: '#app',
+      data: {
+        dogCatImg: '',
+        isDog: false,
+        isCat: false,
+      },
+      methods: {
+        getDog() {
+          if (!this.isDog) {
+            this.isDog = true
+            this.isCat = false
+            axios({
+            method: 'get',
+            url: dogApi
+          })          
+          .then((response) =>{
+            console.log(response.data);
+            this.dogCatImg = response.data.message
+          })
+          }
+        },
+        getCat() {
+          if (!this.isCat) {
+            this.isCat = true
+            this.isDog = false
+            axios({
+              method: 'get',
+              url: catApi,
+            })
+            .then((response) => {
+              console.log(response.data);
+              this.dogCatImg = response.data[0].url
+            })
+          }
+        },
+      },
+    })
+  </script>
+</body>
+</html>
