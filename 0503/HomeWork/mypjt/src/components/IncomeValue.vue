@@ -14,10 +14,11 @@
   <hr>
   <h2>종합소득금액: {{income}} 만원</h2>
   <h2>종합소득공제: (-) {{discount}} 만원</h2>
-  <h2>과세표준: {{standardTax(income, discount)}} 만원</h2>
+  <h2>과세표준: {{standardTax(income, discount )}} 만원</h2>
   <hr>
   <TaxRate
   :standard-tax="standardTax(income, discount)"
+  :tax-reduce="taxReduce"
   />
   </div>
   
@@ -32,7 +33,8 @@ export default {
     TaxRate,
   },
   data() {return {
-    discount: 0,
+    discount: 150,
+    taxReduce: 50,
     income: 0,
     standardTax: function(income, discount) {
       if (income - discount >= 0) {
